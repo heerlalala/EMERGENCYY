@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚨 PANCAKE EMERGENCY 🚨</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Floating Particles & Hearts Background Container -->
+  <div id="particle-container"></div>
+
+  <!-- Ambient Audio / Visual Sounds Overlay (For Cute Atmosphere) -->
+  <div class="sound-toast" id="sound-toast"></div>
+
+  <!-- Custom Popups Container for Random Chaotic GF Popups -->
+  <div id="chaotic-popups-container"></div>
+
+  <!-- 100% Celebration Screen Overlay -->
+  <div class="celebration-overlay" id="celebration-overlay">
+    <div class="celebration-content">
+      <div class="starburst"></div>
+      <span class="celebration-badge">🏆 LEVEL UP</span>
+      <h1 class="bounce-text">🎉 THE PANCAKE SURVIVED 🎉</h1>
+      <p class="celebration-subtitle">CONGRATULATIONS!</p>
+      <div class="celebration-card">
+        <p class="joke-text">Your Pancake has officially recovered from the Great Illness of 2026.</p>
+        <p class="joke-sub">You are now legally allowed to leave your bed.</p>
+        <p class="joke-foot">...but you should probably still rest. 🛌</p>
+      </div>
+      <button class="btn btn-reward" id="claim-reward-btn">❤️ CLAIM YOUR REWARD</button>
+      <div class="reward-box" id="reward-box">
+        <h3>🎁 YOUR REWARD:</h3>
+        <p>Unlimited girlfriend cuddles, back scratches, and forehead kisses! (Non-transferable, expires never) 🫂✨</p>
+      </div>
+    </div>
+  </div>
+
+  <main class="app-container">
+
+    <!-- HERO SECTION: LANDING & CHARACTER -->
+    <header class="section hero-section" id="section-hero">
+      <div class="emergency-badge pulse-anim">
+        <span>🚨 EMERGENCY ALERT 🚨</span>
+      </div>
+      <h1 class="main-title">PANCAKE EMERGENCY</h1>
+      <p class="subtitle">
+        We have received reports that you are sick. This is extremely inconvenient because I need you alive and cute. 😤❤️
+      </p>
+
+      <!-- PANCAKE CHARACTER CONTAINER -->
+      <div class="character-wrapper" id="pancake-character-container">
+        <!-- SVG Pancake Character -->
+        <svg viewBox="0 0 200 200" id="pancake-svg">
+          <!-- Steam / Cloud effects -->
+          <g class="steam-group">
+            <path class="steam-cloud cloud-1" d="M100,25 C105,25 107,20 105,17 C103,14 97,14 95,17 C93,20 95,25 100,25 Z" fill="#ffffff" opacity="0.6"/>
+            <path class="steam-cloud cloud-2" d="M120,30 C124,30 126,26 124,23 C122,20 117,20 115,23 C113,26 115,30 120,30 Z" fill="#ffffff" opacity="0.4"/>
+            <path class="steam-cloud cloud-3" d="M80,35 C83,35 85,31 83,28 C81,25 76,25 74,28 C72,31 74,35 80,35 Z" fill="#ffffff" opacity="0.5"/>
+          </g>
+
+          <!-- Bed Headboard -->
+          <rect x="20" y="80" width="160" height="20" rx="10" fill="#dfd0c0" />
+          <rect x="25" y="40" width="15" height="40" rx="5" fill="#dfd0c0" />
+          <rect x="160" y="40" width="15" height="40" rx="5" fill="#dfd0c0" />
+
+          <!-- Pillow -->
+          <rect x="40" y="70" width="120" height="40" rx="20" fill="#fcfbf4" stroke="#eae3d2" stroke-width="2"/>
+
+          <!-- Pancake Base -->
+          <g class="pancake-body" id="pancake-body-el">
+            <!-- Shadow under pancake -->
+            <ellipse cx="100" cy="115" rx="55" ry="18" fill="rgba(0,0,0,0.06)" />
+            
+            <!-- Pancake Layers -->
+            <ellipse cx="100" cy="115" rx="50" ry="25" fill="#d8a47f" /> <!-- bottom dark edge -->
+            <ellipse cx="100" cy="111" rx="50" ry="25" fill="#f4c38f" /> <!-- top surface -->
+            
+            <!-- Butter -->
+            <path class="butter-cube" d="M90,95 L110,95 L105,103 L85,103 Z" fill="#ffea00" stroke="#f4b251" stroke-width="1.5" />
+            
+            <!-- Syrup Drips -->
+            <path d="M70,105 Q85,115 100,110 T130,105 Q120,122 100,122 T70,105 Z" fill="#b07a51" opacity="0.8" />
+
+            <!-- FACIAL EXPRESSIONS -->
+            <g class="face-group">
+              <!-- Blush (always present, but changes opacity/color) -->
+              <circle class="blush cheek-left" cx="72" cy="114" r="8" fill="#ff8ba7" opacity="0.6" />
+              <circle class="blush cheek-right" cx="128" cy="114" r="8" fill="#ff8ba7" opacity="0.6" />
+
+              <!-- EYES STATES -->
+              <!-- Fine/Cute Eyes -->
+              <g class="eyes eye-state-fine">
+                <circle cx="82" cy="107" r="5" fill="#4a3e3d" />
+                <circle cx="118" cy="107" r="5" fill="#4a3e3d" />
+                <circle cx="83.5" cy="105.5" r="1.8" fill="#ffffff" />
+                <circle cx="119.5" cy="105.5" r="1.8" fill="#ffffff" />
+              </g>
+
+              <!-- Sick/Sad Eyes -->
+              <g class="eyes eye-state-sick d-none">
+                <path d="M76,108 Q82,102 88,108" fill="none" stroke="#4a3e3d" stroke-width="3" stroke-linecap="round" />
+                <path d="M112,108 Q118,102 124,108" fill="none" stroke="#4a3e3d" stroke-width="3" stroke-linecap="round" />
+              </g>
+
+              <!-- Dizzy/Dying X Eyes -->
+              <g class="eyes eye-state-dizzy d-none">
+                <!-- Left X -->
+                <line x1="77" y1="103" x2="87" y2="111" stroke="#4a3e3d" stroke-width="3.5" stroke-linecap="round" />
+                <line x1="87" y1="103" x2="77" y2="111" stroke="#4a3e3d" stroke-width="3.5" stroke-linecap="round" />
+                <!-- Right X -->
+                <line x1="113" y1="103" x2="123" y2="111" stroke="#4a3e3d" stroke-width="3.5" stroke-linecap="round" />
+                <line x1="123" y1="103" x2="113" y2="111" stroke="#4a3e3d" stroke-width="3.5" stroke-linecap="round" />
+              </g>
+
+              <!-- Sleeping / Cozy Closed Eyes -->
+              <g class="eyes eye-state-sleeping d-none">
+                <path d="M76,108 Q82,113 88,108" fill="none" stroke="#4a3e3d" stroke-width="3" stroke-linecap="round" />
+                <path d="M112,108 Q118,113 124,108" fill="none" stroke="#4a3e3d" stroke-width="3" stroke-linecap="round" />
+              </g>
+
+              <!-- MOUTH STATES -->
+              <!-- Smile Mouth -->
+              <path class="mouth mouth-state-fine" d="M96,114 Q100,118 104,114" fill="none" stroke="#4a3e3d" stroke-width="2.5" stroke-linecap="round" />
+              <!-- Miserable Mouth -->
+              <path class="mouth mouth-state-sick d-none" d="M96,116 Q100,111 104,116" fill="none" stroke="#4a3e3d" stroke-width="2.5" stroke-linecap="round" />
+              <!-- Thermometer Mouth -->
+              <g class="mouth mouth-state-thermo d-none">
+                <path d="M96,115 C96,115 99,112 104,114" fill="none" stroke="#4a3e3d" stroke-width="2.5" stroke-linecap="round" />
+                <!-- Thermometer stick -->
+                <rect x="99" y="112" width="22" height="5" rx="2" fill="#e0e0e0" stroke="#a0a0a0" stroke-width="0.8" transform="rotate(-15, 99, 112)" />
+                <!-- Red tip -->
+                <circle cx="120" cy="107" r="4.5" fill="#ff4d6d" stroke="#e01e37" stroke-width="0.8" />
+              </g>
+              <!-- Sneeze Gasp Mouth -->
+              <ellipse class="mouth mouth-state-sneeze d-none" cx="100" cy="115" rx="4" ry="6" fill="#4a3e3d" />
+            </g>
+
+            <!-- Tissues / Sweat detail -->
+            <path class="sweat-drop d-none" d="M62,98 Q60,105 61,107" fill="none" stroke="#a2d2ff" stroke-width="2" stroke-linecap="round" />
+            <path class="sweat-drop d-none" d="M138,98 Q140,105 139,107" fill="none" stroke="#a2d2ff" stroke-width="2" stroke-linecap="round" />
+          </g>
+
+          <!-- Blanket (covers lower body) -->
+          <path class="blanket" d="M40,120 C50,112 150,112 160,120 L160,170 C160,175 155,180 150,180 L50,180 C45,180 40,175 40,170 Z" fill="#b5e2fa" stroke="#90c2e4" stroke-width="3" />
+          
+          <!-- Blanket pattern stripes (subtle white stripes) -->
+          <path d="M50,122 L50,178 M70,120 L70,178 M90,118 L90,178 M110,118 L110,178 M130,120 L130,178 M150,122 L150,178" stroke="rgba(255,255,255,0.4)" stroke-width="6" fill="none" />
+
+          <!-- Tiny Pancake Arm holding a tissue -->
+          <g class="pancake-hand" id="hand-tissue">
+            <!-- Arm/Hand -->
+            <circle cx="55" cy="130" r="8" fill="#f4c38f" />
+            <!-- Crumpled Tissue -->
+            <path d="M50,132 Q42,126 44,136 Q49,141 53,136 Z" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" />
+          </g>
+        </svg>
+
+        <!-- Dynamic Floating Thoughts/Bubbles above character -->
+        <div class="speech-bubble" id="character-thought">"I feel like a soggy waffle... 🤧"</div>
+      </div>
+
+      <!-- Action Button to start -->
+      <div class="cta-wrapper">
+        <button class="btn btn-primary pulse" id="start-recovery-btn">
+          <i class="fa-solid fa-ambulance"></i> START PANCAKE RECOVERY PROTOCOL
+        </button>
+        <p class="cta-warning">Warning: excessive cuteness and bossiness may occur. ⚠️</p>
+      </div>
+    </header>
+
+    <!-- SECTION: VERY SERIOUS DIAGNOSTICS -->
+    <section class="section card-section d-none" id="section-diagnostics">
+      <div class="card glass-card">
+        <div class="card-header">
+          <div class="header-icon"><i class="fa-solid fa-stethoscope"></i></div>
+          <h2>VERY SERIOUS PANCAKE DIAGNOSTICS</h2>
+          <p class="tagline">Our highly qualified team of absolutely unqualified professionals has begun the investigation.</p>
+        </div>
+
+        <!-- DIAGNOSTIC WIZARD -->
+        <div class="quiz-container" id="quiz-container">
+          <!-- Question Progress Bar -->
+          <div class="quiz-progress-wrapper">
+            <div class="quiz-progress-bar" id="quiz-progress-bar" style="width: 20%;"></div>
+          </div>
+
+          <div class="quiz-question-box active" data-step="1">
+            <h3>Have you consumed enough water today? 💧</h3>
+            <div class="btn-group-vertical">
+              <button class="btn btn-option" data-ans="yes">YES (Sure you did... 🤨)</button>
+              <button class="btn btn-option" data-ans="no">NO (Hydration police is watching 🚨)</button>
+              <button class="btn btn-option" data-ans="forgot">I FORGOT 😭 (Typical Pancake)</button>
+            </div>
+          </div>
+
+          <div class="quiz-question-box" data-step="2">
+            <h3>Have you taken your medicine? 💊</h3>
+            <div class="btn-group-vertical">
+              <button class="btn btn-option" data-ans="yes">YES (Good pancake! ⭐)</button>
+              <button class="btn btn-option" data-ans="no">NO (Why must you suffer? 😤)</button>
+              <button class="btn btn-option" data-ans="about-to">I WAS ABOUT TO (Hmm, suspicious...)</button>
+            </div>
+          </div>
+
+          <div class="quiz-question-box" data-step="3">
+            <h3>Are you currently being dramatic? 🎭</h3>
+            <div class="btn-group-vertical">
+              <button class="btn btn-option" data-ans="no">NO (Liar! 🤥)</button>
+              <button class="btn btn-option" data-ans="maybe">MAYBE (Just a tiny bit 🤏)</button>
+              <button class="btn btn-option" data-ans="dying">I'M DYING (Write my will 🪦)</button>
+            </div>
+          </div>
+
+          <div class="quiz-question-box" data-step="4">
+            <h3>Have you eaten actual food? 🍜</h3>
+            <div class="btn-group-vertical">
+              <button class="btn btn-option" data-ans="yes">YES (Healthy fuel acquired)</button>
+              <button class="btn btn-option" data-ans="no">NO (Photosynthesis doesn't work!)</button>
+              <button class="btn btn-option" data-ans="chocolate">DOES CHOCOLATE COUNT? 🍫 (Absolutely not)</button>
+            </div>
+          </div>
+
+          <div class="quiz-question-box" data-step="5">
+            <h3>Do you require girlfriend attention? 🥺</h3>
+            <div class="btn-group-vertical">
+              <button class="btn btn-option" data-ans="yes">YES (On its way!)</button>
+              <button class="btn btn-option" data-ans="obviously">OBVIOUSLY (Dumb question)</button>
+              <button class="btn btn-option" data-ans="always">24/7 PLEASE (Overloading circuits ❤️)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIAGNOSTIC RESULTS REPORT -->
+        <div class="report-container d-none" id="report-container">
+          <div class="report-ribbon">🔬 OFFICIAL MEDICAL REPORT</div>
+          <div class="report-details">
+            <p><strong>PATIENT:</strong> Pancake 🥞</p>
+            <p><strong>CONDITION:</strong> Severe Pancakeitis 🩺</p>
+            <p><strong>SEVERITY:</strong> <span id="report-severity">97%</span></p>
+            <p><strong>PRIMARY DEFICIENCY:</strong> Cuddles 🫂</p>
+            <p><strong>SECONDARY DEFICIENCY:</strong> Girlfriend Attention ❤️</p>
+            <p class="prognosis"><strong>PROGNOSIS:</strong> Extremely cute but mildly pathetic.</p>
+          </div>
+
+          <div class="prescription-box">
+            <h4>💊 OFFICIAL PANCAKE PRESCRIPTION</h4>
+            <ul>
+              <li>💧 2+ glasses of water</li>
+              <li>🍜 At least one proper meal</li>
+              <li>💊 Medicine on time</li>
+              <li>😴 Several hours of sleep</li>
+              <li>🫂 Unlimited cuddles</li>
+              <li>❤️ Maximum girlfriend attention</li>
+              <li>🚫 ZERO unnecessary suffering</li>
+              <li>🚫 ZERO dramatic "I'm dying" behavior</li>
+            </ul>
+          </div>
+          <p class="disclaimer">Disclaimer: This is obviously not actual medical advice. Please follow your real doctor's instructions. ❤️</p>
+          
+          <button class="btn btn-next-sec" id="diagnostics-done-btn">PROCEED TO NEXT TEST 🌡️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: HOW SICK IS PANCAKE SLIDER -->
+    <section class="section card-section d-none" id="section-slider">
+      <div class="card glass-card">
+        <div class="card-header">
+          <div class="header-icon"><i class="fa-solid fa-thermometer"></i></div>
+          <h2>HOW SICK IS THE PANCAKE?</h2>
+          <p class="tagline">Adjust the meter to declare your level of drama and sickness.</p>
+        </div>
+
+        <div class="slider-wrapper">
+          <input type="range" min="0" max="100" value="50" class="sick-slider" id="sick-slider">
+          
+          <div class="slider-labels">
+            <span>Fine 😎</span>
+            <span>Suspicious 😐</span>
+            <span>Need Attention 🥺</span>
+            <span>Dying 😭</span>
+            <span>Beautiful Corpse 🪦</span>
+          </div>
+
+          <div class="slider-output-card" id="slider-output-card">
+            <h3 id="slider-drama-title">"Hmm. This is becoming suspicious."</h3>
+            <p id="slider-drama-text">Sickness Level: 50%</p>
+          </div>
+
+          <button class="btn btn-next-sec" id="slider-done-btn">REQUEST DELIVERY ASSISTANCE 🛵</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: PANCAKE DELIVERY SERVICE -->
+    <section class="section card-section d-none" id="section-delivery">
+      <div class="card glass-card">
+        <div class="card-header">
+          <div class="header-icon"><i class="fa-solid fa-motorcycle"></i></div>
+          <h2>PANCAKE EMERGENCY DELIVERY SERVICE</h2>
+          <p class="tagline">Please select what the Pancake requires immediately.</p>
+        </div>
+
+        <div class="delivery-grid">
+          <div class="delivery-card" id="deliv-food">
+            <div class="deliv-icon">🍜</div>
+            <h3>I NEED FOOD</h3>
+            <p>Send nourishing edible items immediately.</p>
+          </div>
+
+          <div class="delivery-card" id="deliv-water">
+            <div class="deliv-icon">💧</div>
+            <h3>I NEED WATER</h3>
+            <p>Initiate emergency cellular hydration.</p>
+          </div>
+
+          <div class="delivery-card" id="deliv-cuddles">
+            <div class="deliv-icon">🫂</div>
+            <h3>I NEED CUDDLES</h3>
+            <p>Order physical girlfriend snuggle recovery pack.</p>
+          </div>
+
+          <div class="delivery-card" id="deliv-entertainment">
+            <div class="deliv-icon">🎬</div>
+            <h3>I NEED ENTERTAINMENT</h3>
+            <p>Activate distractions for being bored in bed.</p>
+          </div>
+
+          <div class="delivery-card" id="deliv-you">
+            <div class="deliv-icon">🥺</div>
+            <h3>I NEED YOU</h3>
+            <p>Absolute high priority emergency request.</p>
+          </div>
+        </div>
+
+        <!-- Delivery Popup Results display area inside card -->
+        <div class="delivery-result-box d-none" id="delivery-result-box">
+          <h4 id="delivery-res-title">REQUEST STATUS</h4>
+          <p id="delivery-res-text">Processing...</p>
+        </div>
+
+        <button class="btn btn-next-sec" id="delivery-done-btn">START ENTERTAINMENT CENTER 🎮</button>
+      </div>
+    </section>
+
+    <!-- SECTION: EMERGENCY ENTERTAINMENT MINI-GAMES -->
+    <section class="section card-section d-none" id="section-games">
+      <div class="card glass-card">
+        <div class="card-header">
+          <div class="header-icon"><i class="fa-solid fa-gamepad"></i></div>
+          <h2>PANCAKE ENTERTAINMENT CENTER</h2>
+          <p class="tagline">Because apparently being sick is boring.</p>
+        </div>
+
+        <!-- Mini Games Tabs -->
+        <div class="game-tabs">
+          <button class="game-tab-btn active" data-game="tissue">🤧 CATCH TISSUES</button>
+          <button class="game-tab-btn" data-game="dont-click">⚠️ DO NOT CLICK</button>
+          <button class="game-tab-btn" data-game="cuddle">🫂 CUDDLE METER</button>
+        </div>
+
+        <div class="game-content-box">
+          
+          <!-- GAME 1: CATCH THE TISSUES -->
+          <div class="game-panel active" id="game-tissue-panel">
+            <h3>🤧 Tissue Warrior 1.0</h3>
+            <p class="game-desc">Catch the falling tissues (🧻 & 🤧) before they hit the bed. Click/tap them as fast as you can!</p>
+            
+            <div class="tissue-game-area" id="tissue-game-area">
+              <span class="game-placeholder-text" id="game-start-prompt">Click "Start Game" to protect Pancake's nose!</span>
+              <!-- Tissues will spawn here dynamically -->
+            </div>
+
+            <div class="game-controls">
+              <div class="score-display">TISSUES CAUGHT: <span id="tissue-score">0</span></div>
+              <button class="btn btn-primary" id="start-tissue-game">START GAME</button>
+            </div>
+            <div class="game-milestone" id="tissue-milestone">Prepare yourself...</div>
+          </div>
+
+          <!-- GAME 2: DO NOT CLICK THIS BUTTON -->
+          <div class="game-panel" id="game-dont-click-panel">
+            <h3>⚠️ THE FORBIDDEN BUTTON</h3>
+            <p class="game-desc">Do NOT, under any circumstances, click the button below. It is strictly forbidden.</p>
+            
+            <div class="runaway-container" id="runaway-container">
+              <button class="btn btn-danger runaway-btn" id="runaway-btn">⚠️ DO NOT CLICK THIS ⚠️</button>
+            </div>
+
+            <div class="dont-click-log" id="dont-click-log">
+              <p class="log-heading">CLICK RECORD COUNTER:</p>
+              <h4 id="dont-click-counter">Forbidden Clicks: 0</h4>
+              <p class="log-comment" id="dont-click-comment">Waiting for disobedience...</p>
+            </div>
+          </div>
+
+          <!-- GAME 3: CUDDLE METER -->
+          <div class="game-panel" id="game-cuddle-panel">
+            <h3>🫂 CUDDLE ACCUMULATOR</h3>
+            <p class="game-desc">Unleash infinite emotional recovery energy by pressing the cuddle button repeatedly.</p>
+            
+            <div class="cuddle-button-wrapper">
+              <button class="cuddle-trigger-btn" id="cuddle-trigger-btn">
+                <span class="heart-icon">🫂</span>
+              </button>
+            </div>
+
+            <div class="cuddle-score-box">
+              <h2 id="cuddle-count-text">CUDDLES DELIVERED: 0</h2>
+              <div class="cuddle-milestone-msg" id="cuddle-milestone-msg">Click to warm up the room.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="btn btn-next-sec" id="games-done-btn">OPEN MY LETTERS FOR YOU 💌</button>
+      </div>
+    </section>
+
+    <!-- SECTION: OPEN WHEN YOU NEED A SMILE -->
+    <section class="section card-section d-none" id="section-letters">
+      <div class="card glass-card">
+        <div class="card-header">
+          <div class="header-icon"><i class="fa-solid fa-envelope"></i></div>
+          <h2>OPEN WHEN YOU NEED ME</h2>
+          <p class="tagline">Click on an envelope below to open a message custom-written for your specific mood.</p>
+        </div>
+
+        <div class="envelope-grid">
+          <!-- Envelope 1 -->
+          <div class="envelope-wrapper" data-letter="sad">
+            <div class="envelope">
+              <div class="envelope-front">
+                <span class="env-emoji">🥺</span>
+                <h4>Open when you're sad</h4>
+              </div>
+              <div class="envelope-back"></div>
+              <div class="envelope-letter">
+                <p>Hey my cute Pancake... ❤️ I'm sorry you're feeling down. Being sick is absolutely trash, but remember that this is just temporary. I am sending you a massive, warm virtual hug right now. Close your eyes, picture me squishing you, and remember that I am right here with you in spirit. You are my absolute favorite, and I can't wait to squish you in person soon. Hang in there! 🫂✨</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Envelope 2 -->
+          <div class="envelope-wrapper" data-letter="bored">
+            <div class="envelope">
+              <div class="envelope-front">
+                <span class="env-emoji">😐</span>
+                <h4>Open when you're bored</h4>
+              </div>
+              <div class="envelope-back"></div>
+              <div class="envelope-letter">
+                <p>Bored, huh? 🤨 Well, since you have the attention span of a goldfish and are legally trapped in bed, here's a task: Count how many times you breathe in the next minute. Actually, don't, that's boring. Instead, remember the time you did that goofy face? Yeah, I'm thinking of that right now. Go watch a silly cartoon, browse some dumb memes, or play my tissue-catching game again. Boredom is just your brain recovering! 🎮🍿</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Envelope 3 -->
+          <div class="envelope-wrapper" data-letter="missing">
+            <div class="envelope">
+              <div class="envelope-front">
+                <span class="env-emoji">❤️</span>
+                <h4>Open when missing me</h4>
+              </div>
+              <div class="envelope-back"></div>
+              <div class="envelope-letter">
+                <p>I miss you too, you goofball! 🥰 My days are 200% less cute when you are sick in bed. I keep wanting to text you dumb things and send you memes, but I know you should be resting. Just know that I am constantly thinking about you, sending you secret cozy thoughts, and planning all the fun things we are going to do once your immune system stops slacking off. I love you to the moon and back! 🌙💖</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Envelope 4 -->
+          <div class="envelope-wrapper" data-letter="dramatic">
+            <div class="envelope">
+              <div class="envelope-front">
+                <span class="env-emoji">🎭</span>
+                <h4>Open when dramatic</h4>
+              </div>
+              <div class="envelope-back"></div>
+              <div class="envelope-letter">
+                <p>Pancake, please... 🙄 You have a cold/fever, not a terminal illness. The world is not ending, the president does not need to call a national emergency, and you do not need to draft a last will and testament. Stop staring dramatically at the ceiling and drink your water. I say this with maximum affection, but please calm down. You're going to survive! 😂❤️</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Envelope 5 -->
+          <div class="envelope-wrapper" data-letter="motivation">
+            <div class="envelope">
+              <div class="envelope-front">
+                <span class="env-emoji">💪</span>
+                <h4>Open for motivation</h4>
+              </div>
+              <div class="envelope-back"></div>
+              <div class="envelope-letter">
+                <p>Listen to me closely: You got this! 😤 Your immune system is currently fighting a tiny war, and they need their general (you) to cooperate. This means: drink water, swallow that medicine, swallow that soup, and close your eyes. You are strong, you are adorable, and you are going to defeat this germ invasion. Now do your chores (sleeping and resting) and get back to 100%! 🛡️⭐</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-next-sec" id="letters-done-btn">VISIT COMPLIMENT MACHINE 💘</button>
+      </div>
+    </section>
+
+    <!-- SECTION: COMPLIMENT RANDOMIZER -->
+    <section class="section card-section d-none" id="section-compliment">
+      <div class="card glass-card">
+        <div class="card-header">
+          <div class="header-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+          <h2>PANCAKE COMPLIMENT MACHINE</h2>
+          <p class="tagline">Because apparently one compliment isn't enough to satisfy Pancake's ego.</p>
+        </div>
+
+        <div class="compliment-display-area">
+          <div class="compliment-card" id="compliment-card">
+            <p id="compliment-text">"Click below to generate a highly scientific, girlfriend-approved statement of adoration."</p>
+          </div>
+        </div>
+
+        <div class="compliment-controls">
+          <button class="btn btn-primary" id="next-compliment-btn">✨ TELL ME SOMETHING NICE ✨</button>
+        </div>
+
+        <button class="btn btn-next-sec" id="compliment-done-btn">RUN THE ULTIMATE RECOVERY SYSTEM ❤️</button>
+      </div>
+    </section>
+
+    <!-- SECTION: ULTIMATE PANCAKE RECOVERY SYSTEM -->
+    <section class="section card-section d-none" id="section-recovery">
+      <div class="card glass-card">
+        <div class="card-header">
+          <div class="header-icon"><i class="fa-solid fa-battery-half"></i></div>
+          <h2>ULTIMATE PANCAKE RECOVERY SYSTEM</h2>
+          <p class="tagline">Click the recovery buttons to log your healthy deeds and power up Pancake's health meter!</p>
+        </div>
+
+        <div class="recovery-meter-wrapper">
+          <div class="meter-score-text">RECOVERY STATUS: <span id="recovery-percent">0%</span></div>
+          <div class="main-progress-container">
+            <div class="main-progress-bar" id="main-progress-bar">
+              <span class="progress-bubble" id="progress-bubble">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="recovery-actions-grid">
+          <button class="recovery-action-btn" id="action-water">
+            <span class="action-icon">💧</span>
+            <span class="action-title">DRINK WATER</span>
+            <span class="action-bonus">+10% Recovery</span>
+          </button>
+          
+          <button class="recovery-action-btn" id="action-food">
+            <span class="action-icon">🍜</span>
+            <span class="action-title">EAT FOOD</span>
+            <span class="action-bonus">+15% Recovery</span>
+          </button>
+
+          <button class="recovery-action-btn" id="action-medicine">
+            <span class="action-icon">💊</span>
+            <span class="action-title">TAKE MEDICINE</span>
+            <span class="action-bonus">+20% Recovery</span>
+          </button>
+
+          <button class="recovery-action-btn" id="action-sleep">
+            <span class="action-icon">😴</span>
+            <span class="action-title">SLEEP / REST</span>
+            <span class="action-bonus">+20% Recovery</span>
+          </button>
+
+          <button class="recovery-action-btn" id="action-cuddles">
+            <span class="action-icon">🫂</span>
+            <span class="action-title">GET CUDDLES</span>
+            <span class="action-bonus">+25% Recovery</span>
+          </button>
+        </div>
+
+        <div class="recovery-action-notification" id="recovery-log-message">
+          Click the tasks you've accomplished to boost your health!
+        </div>
+      </div>
+    </section>
+
+    <!-- SECRET EASTER EGG SECTION (HIDDEN BUT TUCKED AWAY) -->
+    <div class="easter-egg-wrapper">
+      <button class="btn-easter-egg" id="easter-egg-btn">Definitely don't click this. 🤫</button>
+      
+      <div class="easter-egg-modal" id="easter-egg-modal">
+        <div class="easter-egg-content">
+          <button class="close-easter-egg" id="close-egg-btn">&times;</button>
+          <h1>🥞❤️</h1>
+          <h2>I love you.</h2>
+          <div class="egg-lines">
+            <p>Now stop pretending you're dying and go drink some water. 💧</p>
+            <p>Yes, I'm bossing you around. You're sick. You don't get a vote. 😤❤️</p>
+          </div>
+          <div class="floating-hearts-egg" id="egg-hearts"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER / FINAL SCREEN -->
+    <footer class="section footer-section" id="section-footer">
+      <div class="footer-divider">🥞 ✨ 🥞</div>
+      <h2 class="footer-title">THAT'S ALL, PANCAKE</h2>
+      <p class="footer-text">
+        Now your only job is to rest, drink water, take your medicine, eat something delicious, and get better.
+      </p>
+      
+      <p class="footer-prompt">And just so you know...</p>
+      
+      <div class="love-reveal-container" id="love-reveal-container">
+        <button class="btn btn-reveal-love" id="reveal-love-btn">CLICK FOR A MESSAGE ❤️</button>
+        <div class="love-reveal-content d-none" id="love-reveal-content">
+          <h1 class="glow-text">❤️ YOU ARE VERY, VERY LOVED. ❤️</h1>
+          <p class="sleep-order">Now go sleep, Pancake. 💤</p>
+          <div class="beating-heart">💝</div>
+        </div>
+      </div>
+      
+      <p class="copyright-info">Created with 💖 by your favorite person. All rights to cuddles reserved.</p>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

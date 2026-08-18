@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     "Honestly rude of your immune system to make you sick. I'm filing a complaint. 😤",
     "You're adorable. Now stop being dramatic and take your meds. 💊",
     "If being cute cured illness, you'd already be completely healthy. 🥺",
-    "I love you. Unfortunately, this does not exempt you from drinking water. 💧",
+    "I pancake you. Unfortunately, this does not exempt you from drinking water. 💧",
     "You are too precious to be sneezed on by microscopic germs. Let me beat them up. 👊",
     "Please get better, I need my favorite target for bullying and snuggling. 😂🫂"
   ];
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const deliveryMessages = {
     'deliv-food': {
       title: "🍔 FOOD REQUEST STATUS",
-      text: "Food request received. Your girlfriend has been notified! Unfortunately, teleportation technology is still under development. In the meantime, please consume any soup within arms reach. 🍜",
+      text: "Food request received. Your Waffle has been notified! Unfortunately, teleportation technology is still under development. In the meantime, please consume any soup within arms reach. 🍜",
       emoji: '🍜'
     },
     'deliv-water': {
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'deliv-cuddles': {
       title: "🫂 CUDDLE INVENTORY CHECK",
-      text: "CUDDLE REQUEST RECEIVED. Processing... Processing... ERROR: Girlfriend is too far away. Virtual hugs have been dispatched at lightspeed. 🫂💖",
+      text: "CUDDLE REQUEST RECEIVED. Processing... Processing... ERROR: Waffle is too far away. Virtual hugs have been dispatched at lightspeed. 🫂💖",
       emoji: '🫂'
     },
     'deliv-entertainment': {
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'deliv-you': {
       title: "🥺 SPECIAL SERVICE ENROUTE",
-      text: "Request received ❤️. While I cannot break physics to teleport instantly, consider this a reminder that I love you very, very, VERY much. Hang tight, cutie! 🥰",
+      text: "Request received ❤️. While I cannot break physics to teleport instantly, consider this a reminder that I love you too, I pancake you very, very, VERY much. Hang tight, cutie! 🥰",
       emoji: '❤️'
     }
   };
@@ -925,8 +925,8 @@ document.addEventListener('DOMContentLoaded', () => {
       hasActions: false
     },
     {
-      header: "🥺 GIRLFRIEND CHECK",
-      body: "Are you feeling loved enough right now? Be honest.",
+      header: "🥺 WAFFLE CHECK",
+      body: "Are you feeling pancaked enough right now? Be honest.",
       hasActions: true,
       btn1: "YES ❤️",
       btn2: "NEED MORE ❤️"
@@ -938,7 +938,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       header: "🧍‍♀️ SYSTEM MESSAGE",
-      body: "Alert: Girlfriend is thinking about you. Go rest!",
+      body: "Alert: Waffle is thinking about you. Go rest!",
       hasActions: false
     }
   ];
@@ -1012,5 +1012,76 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
+
+  // ==========================================================================
+  // SHARING SYSTEM (So Waffle can see responses!)
+  // ==========================================================================
+  function generateReportText() {
+    const q1 = userAnswers[1] === 'yes' ? "💧 Yes, hydrated!" : (userAnswers[1] === 'no' ? "💧 No water! 🚨" : "💧 Forgot water 😭");
+    const q2 = userAnswers[2] === 'yes' ? "💊 Meds taken ⭐" : (userAnswers[2] === 'no' ? "💊 No meds 😤" : "💊 About to take them");
+    const q3 = userAnswers[3] === 'no' ? "🎭 Not dramatic (Liar 🤥)" : (userAnswers[3] === 'maybe' ? "🎭 Tiny bit dramatic 🤏" : "🎭 I'M DYING 🪦");
+    const q4 = userAnswers[4] === 'yes' ? "🍜 Munch eaten" : (userAnswers[4] === 'no' ? "🍜 No munch!" : "🍜 Chocolate counts? 🍫");
+    const q5 = userAnswers[5] === 'yes' ? "🥺 Needs attention" : (userAnswers[5] === 'obviously' ? "🥺 Obviously" : "🥺 24/7 attention please ❤️");
+    const sicknessVal = sickSlider.value;
+    
+    return `🥞 PANCAKE EMERGENCY HEALTH REPORT 🥞
+====================================
+🤒 Sickness Severity: ${sicknessVal}%
+📈 Quiz Responses:
+   - Hydration: ${q1}
+   - Medicine: ${q2}
+   - Drama check: ${q3}
+   - Want a munch: ${q4}
+   - Needs Waffle attention: ${q5}
+   
+🎮 Mini-Game Scores:
+   - Cuddles Delivered: ${cuddleCount} 🫂
+   - Tissues Caught: ${tissueScore} 🤧
+   - Forbidden Clicks: ${dontClickClicks} ⚠️
+   
+🔋 Ultimate Recovery: ${recoveryProgress}%
+====================================
+Status: Extremely cute but mildly pathetic. 
+Sent with 🥞 and 💖 to my favorite Waffle!`;
+  }
+
+  function shareReport() {
+    const text = generateReportText();
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(text).then(() => {
+      playVisualSound("📋 REPORT COPIED!");
+      
+      // Try opening WhatsApp
+      const encodedText = encodeURIComponent(text);
+      window.open(`https://api.whatsapp.com/send?text=${encodedText}`, '_blank');
+      
+      // Trigger a floating notification toast
+      const oldToast = toastContainer.querySelector('.chaotic-toast');
+      if (oldToast) oldToast.remove();
+      
+      const shareToast = document.createElement('div');
+      shareToast.className = 'chaotic-toast';
+      shareToast.innerHTML = `
+        <div class="chaotic-toast-header" style="color: var(--color-blue-dark); font-family: var(--font-title); font-size: 13px;">
+          <i class="fa-solid fa-clipboard-check"></i> REPORT COPIED!
+        </div>
+        <div class="chaotic-toast-body" style="font-size: 12px; line-height: 1.4; margin-top: 5px;">
+          Pancake's report is copied to your clipboard! We also opened WhatsApp so you can text it directly to your Waffle. 📲
+        </div>
+      `;
+      toastContainer.appendChild(shareToast);
+      setTimeout(() => shareToast.remove(), 7000);
+      
+      triggerExplosion('💖', 12);
+    }).catch(err => {
+      console.error('Could not copy text: ', err);
+      // Fallback alert
+      alert(text);
+    });
+  }
+
+  document.getElementById('share-diagnostics-btn').addEventListener('click', shareReport);
+  document.getElementById('share-recovery-btn').addEventListener('click', shareReport);
 
 });
